@@ -9,7 +9,7 @@ class Navbar extends Component {
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
           <div className="container">
             <Link className="navbar-brand" to="/">
-              米修在线
+              sf
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
               <span className="navbar-toggler-icon"></span>
@@ -21,6 +21,12 @@ class Navbar extends Component {
                   <Link className="nav-link" to="/profiles">开发者
                   </Link>
                 </li>
+                  <Link className="nav-link" to="/register">
+                    注册
+                   </Link>
+                  <Link className="nav-link" to="/login">
+                    登录
+                  </Link>
               </ul>
             </div>
           </div>

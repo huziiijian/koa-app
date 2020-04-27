@@ -1,58 +1,34 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
-import { loginUser } from '../../actions/authActions';
-import TextFieldGroup from '../../common/TextFieldGroup';
+import TextFieldGroup from '../../common/TextFieldGroup'
 
 class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
+  state = {
       email: '',
       password: '',
       errors: {}
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+    componentDidMount() {
+      console.log(this.props.history)
+      console.log(this.props.location)
     }
 
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      })
+    onSubmit = (e) =>  {
+      e.preventDefault();
+      const newUser = {
+        email: this.state.email,
+        password: this.state.password
+      };
+      // console.log(newUser);
+      this.props.loginUser(newUser);
     }
-  }
 
-  onSubmit(e) {
-    e.preventDefault();
-    const newUser = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    // console.log(newUser);
-    this.props.loginUser(newUser);
-  }
+    onChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    }
 
   render() {
-
     const { errors } = this.state;
-
     return (
       <div className="login">
         <div className="container">
@@ -69,7 +45,6 @@ class Login extends Component {
                   onChange={this.onChange}
                   error={errors.email}
                 />
-
                 <TextFieldGroup
                   type="password"
                   placeholder="密码"
@@ -88,15 +63,5 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-}
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-})
-
-export default connect(mapStateToProps, { loginUser })(Login);
+export default Login;

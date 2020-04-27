@@ -4,20 +4,32 @@ import './App.css';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+
+// redux
+import store from './store'
+import { Provider } from 'react-redux';
+
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <h1>cesdc </h1>
-        <Switch>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <h1>ces冯绍fdv峰dc </h1>
           <Navbar />
-          <Route exact path="/" component={Landing} />
+          {/* 注意Switch引用时一定要刚好只包裹路由组件，否则会无法显示路由 */}
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
           <Footer />
-        </Switch>
-      </div>
-    </Router>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
-export default App;
+export default App; 
