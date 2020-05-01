@@ -1,31 +1,53 @@
 import React, { Component } from 'react';
 import TextFieldGroup from '../../common/TextFieldGroup'
+import { PropTypes } from 'prop-types';
+
+import { connect } from 'react-redux'
+import { loginUser } from '../../actions/authActions';
 
 class Login extends Component {
   state = {
-      email: '',
-      password: '',
-      errors: {}
+    email: '',
+    password: '',
+    errors: {}
+  };
+
+  // 代替componentWillReceiveProps的写法
+  // static getDerivedStateFromProps(nextProps) {
+  //   if (nextProps.errors) {
+  //     return {
+  //       errors: nextProps.errors
+  //     }
+  //   }
+  // }
+
+  // 因为要访问this.props，所以还是采用componentWillReceiveProps的写法
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+  }
+
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const newUser = {
+      email: this.state.email,
+      password: this.state.password
     };
+    // console.log(newUser);
+    this.props.loginUser(newUser);
+  }
 
-    componentDidMount() {
-      console.log(this.props.history)
-      console.log(this.props.location)
-    }
-
-    onSubmit = (e) =>  {
-      e.preventDefault();
-      const newUser = {
-        email: this.state.email,
-        password: this.state.password
-      };
-      // console.log(newUser);
-      this.props.loginUser(newUser);
-    }
-
-    onChange = (e) => {
-      this.setState({ [e.target.name]: e.target.value });
-    }
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
   render() {
     const { errors } = this.state;
@@ -63,5 +85,18 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
 
-export default Login;
+// 将状态映射为属性
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+
+
+export default connect(mapStateToProps, { loginUser })(Login);

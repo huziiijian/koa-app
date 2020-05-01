@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import { PropTypes } from 'prop-types';
+// import { withRouter } from 'react-router-dom';
+// 非路由组件才需要这样，路由组件的this.props中能够获取路由信息
 
 // redux
 import { connect } from 'react-redux';
@@ -39,6 +40,10 @@ class Register extends Component {
     this.props.registerUser(newUser, this.props.history);
   }
 
+  // componentWillReceiveProps在初始化render的时候不会执行，它会在Component接受到新的状态(Props)时被触发
+  // 在这个生命周期中，可以在子组件的render函数执行前获取新的props，从而更新子组件自己的state
+  // 通过调用this.setState()来更新你的组件状态，旧的属性还是可以通过this.props来获取,
+  // 这里调用更新状态是安全的，并不会触发额外的render调用
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
@@ -89,5 +94,5 @@ const mapStateToProps = (state) => ({
 })
 
 // 如果mapDispatchToProps是一个对象，它的每个键名也是对应 UI 组件的同名参数，键值应该是一个函数
-// q会被当作 Action creator ，返回的 Action 会由 Redux 自动发出
+// 会被当作 Action creator ，返回的 Action 会由 Redux 自动发出
 export default connect(mapStateToProps, { registerUser })(Register);

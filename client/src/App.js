@@ -6,11 +6,21 @@ import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import setAuthToken from './utils/setAuthToken';
+import jwt_decode from 'jwt-decode';
+import { setCurrentUser } from './actions/authActions';
 
 // redux
 import store from './store'
 import { Provider } from 'react-redux';
 
+// 防止刷新导致的redux丢失
+if (localStorage.jwtToken) {
+  setAuthToken(localStorage.jwtToken);
+  const decoded = jwt_decode(localStorage.jwtToken);
+  // 派发到reducer里
+  store.dispatch(setCurrentUser(decoded));
+}
 
 function App() {
   return (

@@ -96,6 +96,7 @@ router.post('/login', async ctx => {
     // 验证通过
     if (result) {
       // 返回token
+      // 利用三个参数{id,name,avatar}生成token
       const payload = { id: user.id, name: user.name, avatar: user.avatar };
       const token = jwt.sign(payload, keys.secretOrKey, { expiresIn: "7d" });
       ctx.status = 200;
