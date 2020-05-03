@@ -20,6 +20,12 @@ class Login extends Component {
   //     }
   //   }
   // }
+  
+  componentDidMount() { // 在这做路由守卫
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
 
   // 因为要访问this.props，所以还是采用componentWillReceiveProps的写法
   componentWillReceiveProps(nextProps) {

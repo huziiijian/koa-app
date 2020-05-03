@@ -90,7 +90,7 @@ Register.propTypes = {
 // 后面的state.***也是一个函数，可以从state算出返回值,一般就是对应的reducer的返回对象
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors//注意这里是通过reducer返回的state.errors
+  errors: state.errors//注意这里是通过reducer返回的state.errors(reducers/index)
 })
 
 // 如果mapDispatchToProps是一个对象，它的每个键名也是对应 UI 组件的同名参数，键值应该是一个函数

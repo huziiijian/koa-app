@@ -43,7 +43,7 @@ TextFieldGroup.propTypes = {
   disabled: PropTypes.string
 };
 
-TextFieldGroup.defaultProps = {
+TextFieldGroup.defaultProps = { // 设置默认传递属性
   type: "text"
 }
 
