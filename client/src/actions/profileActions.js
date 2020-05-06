@@ -43,7 +43,7 @@ export const getProfileByHandle = handle => dispatch => {
 // 创建个人信息post数据
 export const createProfile = (profileData, history) => dispatch => {
   axios.post("/api/profile", profileData)
-    .then(res => history.push("/dashboard"))
+    .then(() => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -154,12 +154,12 @@ export const setProfileLoading = () => {
 }
 
 export const clearCurrentProfile = () => dispatch => {
-  // return和dispatch两种写法都行
+  // return和dispatch两种写法都行。。。不对，还是只能dispatch，return不起作用
   // http://echizen.github.io/tech/2016/07-23-dispatch
   // return { 
   //   type: CLEAR_CURRENT_PROFILE
   // }
-  dispatch({
+  dispatch({ // 派发成功，state的改变需要用componentWillReceiveProps去监听
     type:CLEAR_CURRENT_PROFILE
   })
 }

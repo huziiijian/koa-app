@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ProfileActives from './ProfileActives';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getCurrentProfile } from '../../actions/profileActions';
+import { getCurrentProfile, deleteAccout } from '../../actions/profileActions';
 import Spinner from '../../common/Spinner';
 
 
@@ -13,6 +14,7 @@ class Dashboard extends Component {
   }
 
   onDeleteClick(e) {
+    this.props.deleteAccout();
   }
 
   render() {
@@ -25,7 +27,7 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />
     } else {
       // 检查对象中是否有数据
-      if (Object.keys(profile).length > 0) {
+      if (Object.keys(profile).length > 0) { // 利用Object.keys也可
         // 有数据
         dashboardContent = (
           <div>
@@ -33,7 +35,7 @@ class Dashboard extends Component {
               Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
             </p>
 
-            {/* <ProfileActives /> */}
+            <ProfileActives />
 
             {/* 教育经历 & 个人履历 */}
             {/* <Experience experience={profile.experience} /> 
@@ -86,4 +88,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 })
 
-export default connect(mapStateToProps, { getCurrentProfile  })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccout })(Dashboard);

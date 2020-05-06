@@ -15,7 +15,7 @@ class Register extends Component {
     email: '',
     password: '',
     password2: '',
-    errors: {}
+    errors: {} // 保证error的独立性
   };
 
   onChange = (e) => {
@@ -42,9 +42,9 @@ class Register extends Component {
 
   // componentWillReceiveProps在初始化render的时候不会执行，它会在Component接受到新的状态(Props)时被触发
   // 在这个生命周期中，可以在子组件的render函数执行前获取新的props，从而更新子组件自己的state
-  // 通过调用this.setState()来更新你的组件状态，旧的属性还是可以通过this.props来获取,
-  // 这里调用更新状态是安全的，并不会触发额外的render调用
+  // 这里调用更新状态是安全的，并不会触发额外的render
   componentWillReceiveProps(nextProps) {
+    // console.log(nextProps.errors) // 如果要更新组件状态需要在这调用setState访问this.props.errors更新state
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -54,6 +54,8 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
+    // 每次this.props.errors改变时，组件内定义的state是不能接收到的，只有通过componentWillReceiveProps去改变才行
+    // console.log(errors, this.props.errors)
     return (
       <div className="register">
         <div className="container">
@@ -86,13 +88,13 @@ Register.propTypes = {
   errors: PropTypes.object.isRequired
 }
 
-// mapStateToProps是一个函数，它接受state作为参数，返回一个对象。这个对象的属性代表 UI 组件的同名参数
-// 后面的state.***也是一个函数，可以从state算出返回值,一般就是对应的reducer的返回对象
+// mapStateToProps是一个函数，建立一个从(外部的)state对象到(UI 组件的)props对象的映射关系。这个对象的属性代表 UI 组件的同名参数
+// 后面的state.***也是一个函数，可以从state算出返回值,一般就是对应的reducer里的定义的对象
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  errors: state.errors//注意这里是通过reducer返回的state.errors(reducers/index)
+  auth: state.auth, // 参考redux-demo
+  errors: state.errors//注意这里是通过reducer返回的state.errors(reducers/index)，
 })
 
 // 如果mapDispatchToProps是一个对象，它的每个键名也是对应 UI 组件的同名参数，键值应该是一个函数
-// 会被当作 Action creator ，返回的 Action 会由 Redux 自动发出
+// 会被当作 Action creator，返回的 Action 会由 Redux 自动发出
 export default connect(mapStateToProps, { registerUser })(Register);

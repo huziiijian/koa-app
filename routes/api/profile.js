@@ -18,13 +18,11 @@ const validateEducationInput = require('../../validation/education');
  * @access 接口私有
  */
 router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
-  // console.log(ctx.state.user);
   const profile = await Profile.find({ user: ctx.state.user.id })
     .populate('user', ['name', 'avatar']);//以对象形式去新加入表格的数据
-  // console.log(profile);
   if (profile.length > 0) {
     ctx.status = 200;
-    ctx.body = profile;
+    ctx.body = profile[0]; // 注意find()的返回值是数组类型
   } else {
     ctx.status = 404;
     ctx.body = { noprofile: '该用户没有任何相关的个人信息' };

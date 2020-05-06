@@ -13,10 +13,13 @@ class Navbar extends Component {
     this.props.logoutUser();
   }
 
+  componentWillReceiveProps(nextProps) {
+    // console.log(nextProps.profile) // 如果要更新组件状态需要在这调用setState
+  }
+// profile除了第一次不在componentWillReceiveProps里打印外，render中和componentWillReceiveProps中状态是同步变更的
   render() {
-
     const { isAuthenticated, user } = this.props.auth;
-
+    // console.log(this.props.profile) // 能够监听props变化，但不能更新组件状态
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -84,7 +87,8 @@ Navbar.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  profile: state.profile
 })
 
 export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);

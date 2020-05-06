@@ -55,7 +55,7 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  render() {
+  render = () => {
     const { errors } = this.state;
     return (
       <div className="login">
