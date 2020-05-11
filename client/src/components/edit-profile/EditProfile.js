@@ -17,7 +17,7 @@ class CreateProfile extends Component {
   };
 
   componentDidMount() {
-    this.props.getCurrentProfile();
+    this.props.getCurrentProfile(); // 渲染之前拿到数据！！！
   }
 
   onSubmit = (e) => {
@@ -52,7 +52,7 @@ class CreateProfile extends Component {
       const profile = nextProps.profile.profile;
       console.log(profile)
 
-      profile.company = !isEmpty(profile.company) ? profile.company : '';
+      profile.company = !(profile.company) ? profile.company : '';
       profile.website = !isEmpty(profile.website) ? profile.website : '';
       profile.location = !isEmpty(profile.location) ? profile.location : '';
       profile.githubusername = !isEmpty(profile.githubusername)
@@ -74,7 +74,7 @@ class CreateProfile extends Component {
         ? profile.social.wangyikt
         : '';
 
-      const skillsCSV = profile.skills.join(",");
+      const skillsCSV = profile.skills.join(","); // 数组转字符
       this.setState({
         handle: profile.handle,
         company: profile.company,
