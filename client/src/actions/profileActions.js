@@ -72,7 +72,7 @@ export const deleteAccout = () => dispatch => {
 // 添加个人经历
 export const addExperience = (expData, history) => dispatch => {
   axios.post("/api/profile/experience", expData)
-    .then(res => history.push("/dashboard"))
+    .then(() => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -84,7 +84,7 @@ export const addExperience = (expData, history) => dispatch => {
 // 添加教育经历
 export const addEducation = (expData, history) => dispatch => {
   axios.post("/api/profile/education", expData)
-    .then(res => history.push("/dashboard"))
+    .then(() => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -160,6 +160,6 @@ export const clearCurrentProfile = () => dispatch => {
   //   type: CLEAR_CURRENT_PROFILE
   // }
   dispatch({ // 派发成功，state的改变需要用componentWillReceiveProps去监听
-    type:CLEAR_CURRENT_PROFILE
+    type: CLEAR_CURRENT_PROFILE
   })
 }
