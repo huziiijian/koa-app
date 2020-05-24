@@ -22,7 +22,6 @@ class AddExperience extends Component {
       disabled: false
     };
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
     this.onCheck = this.onCheck.bind(this);
   }
 
@@ -34,7 +33,7 @@ class AddExperience extends Component {
     }
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     const expData = {
       company: this.state.company,
