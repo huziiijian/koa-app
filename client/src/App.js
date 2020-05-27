@@ -14,6 +14,8 @@ import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile'
 import AddExperience from './components/add-credentials/AddExperience';
 import AddEducation from './components/add-credentials/AddEducation';
+import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
 import PrivateRoute from './common/PrivateRoute';
 
 // redux
@@ -43,20 +45,22 @@ if (localStorage.jwtToken) {
 function App() {
   return (
     <Provider store={store}>
-    {/* 通过context原理让子组件直接拿到state */}
+      {/* 通过context原理让子组件直接拿到state */}
       <Router>
         <div className="App">
-          <h1>ces冯绍fdv峰dc </h1>
+          <h1>信息管理系统</h1>
           <Navbar />
           <Route exact path="/" component={Landing} />
           <div className="contaier">
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
-                <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-                <PrivateRoute exact path="/add-experience" component={AddExperience} />
-                <PrivateRoute exact path="/add-education" component={AddEducation} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/profiles" component={Profiles} />
+            <Route exact path="/profile/:handle" component={Profile} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+            <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+            <PrivateRoute exact path="/add-experience" component={AddExperience} />
+            <PrivateRoute exact path="/add-education" component={AddEducation} />
           </div>
           <Footer />
         </div>

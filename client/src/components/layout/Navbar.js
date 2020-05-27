@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
@@ -14,12 +14,12 @@ class Navbar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps.profile) // 如果要更新组件状态需要在这调用setState
+    // console.log(nextProps) // 如果要更新组件状态需要在这调用setState
   }
 // profile除了第一次不在componentWillReceiveProps里打印外，render中和componentWillReceiveProps中状态是同步变更的
   render() {
     const { isAuthenticated, user } = this.props.auth;
-    // console.log(this.props.profile) // 能够监听props变化，但不能更新组件状态
+    const pathname = this.props.location.pathname; 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -58,20 +58,19 @@ class Navbar extends Component {
       <div>
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
           <div className="container">
-            <Link className="navbar-brand" to="/">
-              sf
+            <Link className={pathname === "/dashboard" ? "navbar-brand":"nav-link"} to="/"> 控制面板
             </Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+            {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
               <span className="navbar-toggler-icon"></span>
-            </button>
+            </button> */}
 
             <div className="collapse navbar-collapse" id="mobile-nav">
-              <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/profiles">开发者
+              {/* <ul className="navbar-nav mr-auto"> */}
+                {/* <li className="nav-item"> */}
+                  <Link className={pathname === "/profiles" ? "navbar-brand":"nav-link"} to="/profiles"> 开发者
                   </Link>
-                </li>
-              </ul>             
+                {/* </li> */}
+              {/* </ul>              */}
               {isAuthenticated ? authLinks : guestLink}
             </div>
           </div>
@@ -91,5 +90,5 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 })
 
-export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(withRouter(Navbar));
 

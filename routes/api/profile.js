@@ -19,7 +19,7 @@ const validateEducationInput = require('../../validation/education');
  */
 router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
   const profile = await Profile.find({ user: ctx.state.user.id })
-    .populate('user', ['name', 'avatar']);//以对象形式去新加入表格的数据
+    .populate('user', ['name', 'avatar']);//以对象形式去加入新表格的数据
   if (profile.length > 0) {
     ctx.status = 200;
     ctx.body = profile[0]; // 注意find()的返回值是数组类型
@@ -278,7 +278,7 @@ router.post('/education', passport.authenticate('jwt', { session: false }), asyn
  * @access 接口是私有的
  */
 router.delete('/experience', passport.authenticate('jwt', { session: false }), async ctx => {
-  const exp_id = ctx.query.exp_id;
+  const exp_id = ctx.query.exp_id;// 前端要给exp_id的变量给接口
   const profile = await Profile.find({ user: ctx.state.user.id });
   if (profile[0].experience.length > 0) {
     const removeIndex = profile[0].experience
@@ -293,7 +293,6 @@ router.delete('/experience', passport.authenticate('jwt', { session: false }), a
       { $set: profile[0] },
       { new: true }
     );
-
     ctx.body = profileUpdate;
   } else {
     ctx.status = 404;

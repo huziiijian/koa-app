@@ -10,6 +10,7 @@ class Experience extends Component {
   render() {
     const experience = this.props.experience.map(exp => (
       <tr key={exp._id}>
+      {/* 绑定key值可以提升性能 */}
         <td>{exp.company}</td>
         <td>{exp.title}</td>
         <td>

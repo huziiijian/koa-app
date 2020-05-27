@@ -25,7 +25,7 @@ export const getProfileByHandle = handle => dispatch => {
   // 加载动画
   dispatch(setProfileLoading());
   // 请求数据
-  axios(`/api/profile/handle/${handle}`)
+  axios(`/api/profile/handle?handle=${handle}`)
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -95,7 +95,7 @@ export const addEducation = (expData, history) => dispatch => {
 
 // 删除个人履历
 export const deleteExperience = id => dispatch => {
-  axios.delete(`/api/profile/experience/${id}`)
+  axios.delete(`/api/profile/experience?exp_id=${id}`)
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -112,7 +112,7 @@ export const deleteExperience = id => dispatch => {
 
 // 删除教育经历
 export const deleteEducation = id => dispatch => {
-  axios.delete(`/api/profile/education/${id}`)
+  axios.delete(`/api/profile/education?edu_id=${id}`)
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -134,12 +134,12 @@ export const getProfiles = () => dispatch => {
   // 请求所有人信息
   axios.get('/api/profile/all')
     .then(res =>
-      dispatch({
+      dispatch({ // 告知reducer去改变中央状态
         type: GET_PROFILES,
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(() =>
       dispatch({
         type: GET_PROFILES,
         payload: null
