@@ -1,30 +1,28 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 class ProfileGithub extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      clientId: "d0800b2e1e4edf23758c",
-      clientSecret: "c2171f07276237bf166715faacc686f4b5e7ba73",
+
+    state = {
+      clientId: "021039cbb9eea7bac690",
+      clientSecret: "a75f06d9f26bc372cc8071d88aa20b232dffe5ed",
       count: 0,
       sort: 'created: desc',
       repos: []
     };
-  }
-  componentDidMount() {
+  // myRef = React.createRef();
+
+  componentDidMount() { // 页面即将渲染之前
     const { username } = this.props;
     const { count, sort, clientId, clientSecret } = this.state;
-
+// 也可以用redux实现
+// 利用接口获取github数据
     fetch(`https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`)
       .then(res => res.json())
       .then(data => {
-        if (this.refs.myRef) {
           this.setState({
             repos: data
           })
-        }
-      })
-      .catch(err => console.log(err));
+      }).catch(err => console.log(err));
   }
 
   render() {
@@ -55,7 +53,7 @@ class ProfileGithub extends Component {
       </div>
     ))
     return (
-      <div ref="myRef">
+      <div>
         <hr />
         <h3 className="mb-4">Github仓库信息</h3>
         {repoItems}

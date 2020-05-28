@@ -11,9 +11,20 @@ import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
 class CreateProfile extends Component {
   state = {
-    displaySocialInputs: false, handle: '', company: '', website: '', location: '',
-    status: '', skills: '', githubusername: '', bio: '', wechat: '', QQ: '',
-    tengxunkt: '', wangyikt: '', errors: {}
+    displaySocialInputs: false,
+    handle: '',
+    company: '',
+    website: '',
+    location: '',
+    status: '',
+    skills: '',
+    githubusername: '',
+    bio: '',
+    wechat: '',
+    QQ: '',
+    tengxunkt: '',
+    wangyikt: '',
+    errors: {}
   };
 
   componentDidMount() {
@@ -36,7 +47,7 @@ class CreateProfile extends Component {
       tengxunkt: this.state.tengxunkt,
       wangyikt: this.state.wangyikt,
     };
-    // console.log(profileData);
+    console.log(profileData);
     this.props.createProfile(profileData, this.props.history);
   }
 
@@ -50,7 +61,6 @@ class CreateProfile extends Component {
 
     if (nextProps.profile.profile) {
       const profile = nextProps.profile.profile;
-      console.log(profile)
 
       profile.company = !(profile.company) ? profile.company : '';
       profile.website = !isEmpty(profile.website) ? profile.website : '';

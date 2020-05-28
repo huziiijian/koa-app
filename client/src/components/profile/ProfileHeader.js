@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import isEmpty from '../../validation/is-empty';
 import PropTypes from 'prop-types';
 
-
 class ProfileHeader extends Component {
   render() {
     const { profile } = this.props;
@@ -42,7 +41,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.social && profile.social.wechat) ? null : (
                   <a
                     className="text-white p-2"
-                    // href={profile.social.wechat}
+                    href={profile.social.wechat}
                     target="_blank"
                   >
                     <i className="fab fa-weixin fa-2x" />
@@ -52,7 +51,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.social && profile.social.QQ) ? null : (
                   <a
                     className="text-white p-2"
-                    // href={profile.social.QQ}
+                    href={profile.social.QQ}
                     target="_blank"
                   >
                     <i className="fab fa-qq fa-2x" />
@@ -90,4 +89,5 @@ class ProfileHeader extends Component {
 ProfileHeader.propTypes = {
   profile: PropTypes.object.isRequired
 };
+
 export default ProfileHeader;
