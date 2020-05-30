@@ -11,8 +11,13 @@ class PostItem extends Component {
     this.props.deletePost(id);
   }
 
-  onLikeClick(id) {
-    this.props.addLike(id);
+  onLikeClick(post) {
+    const { auth } = this.props;
+    if (post.likes.filter(like => like.user === auth.user.id).length > 0) {
+      this.props.removeLike(post._id);
+    } else {
+      this.props.addLike(post._id);
+    }
   }
 
   onUnlikeClick(id) {
@@ -21,7 +26,6 @@ class PostItem extends Component {
 
   findUserLike(likes) {
     const { auth } = this.props;
-
     if (likes.filter(like => like.user === auth.user.id).length > 0) {
       return true;
     } else {
@@ -47,7 +51,7 @@ class PostItem extends Component {
             {
               showActions ? (
                 <span>
-                  <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
+                  <button onClick={this.onLikeClick.bind(this, post)} type="button" className="btn btn-light mr-1">
                     <i className={classnames("fas fa-thumbs-up", {
                       'text-info': this.findUserLike(post.likes)
                     })}></i>
@@ -66,13 +70,12 @@ class PostItem extends Component {
                         type="button"
                         className="btn btn-danger mr-1">
                         删除
-                </button>
+                      </button>
                     ) : null
                   }
                 </span>
               ) : null
             }
-
           </div>
         </div>
       </div>

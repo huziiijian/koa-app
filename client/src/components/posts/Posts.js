@@ -13,9 +13,7 @@ class Posts extends Component {
 
   render() {
     const { posts, loading } = this.props.post;
-
     let postContent;
-
     if (posts === null || loading) {
       postContent = <Spinner />
     } else {

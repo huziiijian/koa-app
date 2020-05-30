@@ -11,7 +11,6 @@ class PostForm extends Component {
       text: '',
       errors: {}
     }
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -30,9 +29,8 @@ class PostForm extends Component {
       name: user.name,
       avatar: user.avatar
     }
-
     this.props.addPost(newPost);
-    this.setState({ text: '' });
+    this.setState({ text: '' });  // 记得提交之后对输入框进行清空
   }
 
   onChange(e) {
