@@ -57,7 +57,7 @@ class Navbar extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-          <div className="container">
+          <div className="container navbar-nav">
             <Link className={pathname === "/dashboard" ? "navbar-brand":"nav-link"} to="/"> 控制面板
             </Link>
             {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
