@@ -107,9 +107,9 @@ export const removeLike = id => dispatch => {
     )
 };
 
-// 添加留言
+// 添加留言  api/posts/comment?id=afdsfadfasf
 export const addComment = (postId, commentData) => dispatch => {
-  axios.post(`/api/posts/comment/${postId}`, commentData)
+  axios.post(`/api/posts/comment?id=${postId}`, commentData)
     .then(res =>
       dispatch({
         type: GET_POST,
@@ -125,8 +125,9 @@ export const addComment = (postId, commentData) => dispatch => {
 }
 
 // 删除留言  api/posts/comment?id=afdsfadfasf&comment_id=dsfasdfasfd
+// 谁(id)给谁(comment_id)留的言
 export const deleteComment = (postId, commentId) => dispatch => {
-  axios.delete(`/api/posts/comment/${postId}/${commentId}`)
+  axios.delete(`/api/posts/comment?id=${postId}&comment_id=${commentId}`)
     .then(res =>
       dispatch({
         type: GET_POST,

@@ -17,7 +17,7 @@ class CommentForm extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.errors) {
+    if (newProps.errors) { // 涉及到state的改变要考虑放这里
       this.setState({ errors: newProps.errors });
     }
   }
