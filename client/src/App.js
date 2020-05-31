@@ -18,6 +18,7 @@ import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
 import PrivateRoute from './common/PrivateRoute';
+import Post from './components/post/Post';
 
 // redux
 import store from './store'
@@ -63,6 +64,7 @@ function App() {
             <PrivateRoute exact path="/add-experience" component={AddExperience} />
             <PrivateRoute exact path="/add-education" component={AddEducation} />
             <PrivateRoute exact path="/feed" component={Posts} />
+            <PrivateRoute exact path="/post/:id" component={Post} />
           </div>
           <Footer />
         </div>

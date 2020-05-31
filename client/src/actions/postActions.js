@@ -37,10 +37,10 @@ export const getPosts = () => dispatch => {
     )
 }
 
-// 获取单条评论
+// 获取单条评论  api/posts?id=asdfasdf
 export const getPost = id => dispatch => {
   dispatch(setPostLoading);
-  axios.get(`/api/posts/${id}`)
+  axios.get(`/api/posts?id=${id}`)
     .then(res =>
       dispatch({
         type: GET_POST,
@@ -80,7 +80,6 @@ export const addLike = id => dispatch => {
         type: CHANGE_LIKE,
         payload: res.data
       })
-      // window.location.reload() 
     }
     )
     .catch(err =>
@@ -99,7 +98,6 @@ export const removeLike = id => dispatch => {
         type: CHANGE_LIKE,
         payload: res.data
       })
-      // window.location.reload()
     )
     .catch(err =>
       dispatch({

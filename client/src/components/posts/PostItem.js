@@ -13,15 +13,12 @@ class PostItem extends Component {
 
   onLikeClick(post) {
     const { auth } = this.props; 
+    // 判断当前用户是否赞过
     if (post.likes.filter(like => like.user === auth.user.id).length > 0) {
       this.props.removeLike(post._id);
     } else {
       this.props.addLike(post._id);
     }
-  }
-
-  onUnlikeClick(id) {
-    this.props.removeLike(id);
   }
 
   findUserLike(likes) {
@@ -59,12 +56,9 @@ class PostItem extends Component {
                   <button onClick={() => this.onLikeClick(post)} type="button" className="btn btn-light mr-1">
                     <i className={classnames("fas fa-thumbs-up", {
                       // 这里对样式的修改不起作用，必须刷新后起效
-                      'text-info': this.findUserLike(post.likes)
+                      // 'text-info': this.findUserLike(post.likes)
                     })} ></i>
                     <span className="badge badge-light">{post.likes.length}</span>
-                  </button>
-                  <button onClick={this.onUnlikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
-                    <i className="text-secondary fas fa-thumbs-down"></i>
                   </button>
                   <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
                     鼓励留言
