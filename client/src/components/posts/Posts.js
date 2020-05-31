@@ -10,9 +10,13 @@ class Posts extends Component {
   componentDidMount() {
     this.props.getPosts();
   }
+  
+  componentWillReceiveProps(newProps) {
+    console.log(newProps)
+  }
 
   render() {
-    const { posts, loading } = this.props.post;
+    const { posts, loading, post } = this.props.post;
     let postContent;
     if (posts === null || loading) {
       postContent = <Spinner />

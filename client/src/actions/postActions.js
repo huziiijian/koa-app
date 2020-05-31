@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_POST, GET_POSTS, GET_POST, DELETE_POST, POST_LOADDING, GET_ERRORS } from './types';
+import { ADD_POST, GET_POSTS, GET_POST, DELETE_POST, POST_LOADDING, GET_ERRORS, CHANGE_LIKE } from './types';
 
 // 添加评论
 export const addPost = postData => dispatch => {
@@ -55,10 +55,10 @@ export const getPost = id => dispatch => {
     )
 }
 
-// 删除一条评论
+// 删除一条评论  api/posts?id=adsfasdfasf
 export const deletePost = id => dispatch => {
-  axios.delete(`/api/posts/${id}`)
-    .then(res =>
+  axios.delete(`/api/posts?id=${id}`)
+    .then(() =>
       dispatch({
         type: DELETE_POST,
         payload: id
@@ -75,8 +75,13 @@ export const deletePost = id => dispatch => {
 // 点赞  api/posts/like?id=afdsfadfasf
 export const addLike = id => dispatch => {
   axios.post(`/api/posts/like?id=${id}`)
-    .then(res =>
-      window.location.reload()
+    .then(res => {
+      dispatch({
+        type: CHANGE_LIKE,
+        payload: res.data
+      })
+      // window.location.reload() 
+    }
     )
     .catch(err =>
       dispatch({
@@ -86,11 +91,15 @@ export const addLike = id => dispatch => {
     )
 };
 
-// 取消点赞
+// 取消点赞  api/posts/cancel_like?id=afdsfadfasf
 export const removeLike = id => dispatch => {
-  axios.post(`/api/posts/unlike/${id}`)
+  axios.post(`/api/posts/cancel_like?id=${id}`)
     .then(res =>
-      window.location.reload()
+      dispatch({
+        type: CHANGE_LIKE,
+        payload: res.data
+      })
+      // window.location.reload()
     )
     .catch(err =>
       dispatch({
@@ -117,7 +126,7 @@ export const addComment = (postId, commentData) => dispatch => {
     )
 }
 
-// 删除留言
+// 删除留言  api/posts/comment?id=afdsfadfasf&comment_id=dsfasdfasfd
 export const deleteComment = (postId, commentId) => dispatch => {
   axios.delete(`/api/posts/comment/${postId}/${commentId}`)
     .then(res =>

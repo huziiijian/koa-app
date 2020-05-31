@@ -93,7 +93,7 @@ export const addEducation = (expData, history) => dispatch => {
     )
 }
 
-// 删除个人履历
+// 删除工作经历
 export const deleteExperience = id => dispatch => {
   axios.delete(`/api/profile/experience?exp_id=${id}`)
     .then(res =>

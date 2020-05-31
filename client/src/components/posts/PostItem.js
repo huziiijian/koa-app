@@ -12,7 +12,7 @@ class PostItem extends Component {
   }
 
   onLikeClick(post) {
-    const { auth } = this.props;
+    const { auth } = this.props; 
     if (post.likes.filter(like => like.user === auth.user.id).length > 0) {
       this.props.removeLike(post._id);
     } else {
@@ -31,6 +31,10 @@ class PostItem extends Component {
     } else {
       return false;
     }
+  }
+  
+  componentWillReceiveProps(newProps) {
+    this.findUserLike(newProps.post.likes)
   }
 
   render() {
@@ -51,10 +55,12 @@ class PostItem extends Component {
             {
               showActions ? (
                 <span>
-                  <button onClick={this.onLikeClick.bind(this, post)} type="button" className="btn btn-light mr-1">
+                {/* 注意这里如果不用bind，配合action里的reload会导致组件不停地刷新 */}
+                  <button onClick={() => this.onLikeClick(post)} type="button" className="btn btn-light mr-1">
                     <i className={classnames("fas fa-thumbs-up", {
+                      // 这里对样式的修改不起作用，必须刷新后起效
                       'text-info': this.findUserLike(post.likes)
-                    })}></i>
+                    })} ></i>
                     <span className="badge badge-light">{post.likes.length}</span>
                   </button>
                   <button onClick={this.onUnlikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
@@ -64,7 +70,7 @@ class PostItem extends Component {
                     鼓励留言
                   </Link>
                   {
-                    post.user === auth.user.id ? (
+                    post.user === auth.user.id ? ( // 如果是自己点赞的就可以删除
                       <button
                         onClick={this.onDeleteClick.bind(this, post._id)}
                         type="button"

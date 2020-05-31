@@ -1,4 +1,4 @@
-import { ADD_POST, GET_POSTS, GET_POST, DELETE_POST, POST_LOADDING } from '../actions/types';
+import { ADD_POST, GET_POSTS, GET_POST, DELETE_POST, POST_LOADDING, CHANGE_LIKE } from '../actions/types';
 
 const initialState = {
   posts: [],
@@ -34,6 +34,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: state.posts.filter(post => post._id !== action.payload)
+      }
+    case CHANGE_LIKE:
+      return {
+        ...state,
+        posts: state.posts.map(post => // 这样可以不修改state.posts的属性，而是直接返回新对象
+          post._id == action.payload._id ? { ...post, likes:action.payload.likes} : post )
       }
     default:
       return state;
