@@ -39,7 +39,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: state.posts.map(post => // 这样可以不修改state.posts的属性，而是直接返回新对象
-          post._id == action.payload._id ? { ...post, likes:action.payload.likes} : post )
+          post._id === action.payload._id ? { ...post, likes:action.payload.likes} : post )
       }
     default:
       return state;
